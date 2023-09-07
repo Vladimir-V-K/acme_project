@@ -1,7 +1,8 @@
 #  Импортируем класс пагинатора.
 # from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
+from django.urls import reverse_lazy
 
 # Импортируем класс BirthdayForm, чтобы создать экземпляр формы.
 from .forms import BirthdayForm
@@ -38,6 +39,23 @@ def birthday(request, pk=None):
         )
         context.update({'birthday_countdown': birthday_countdown})
     return render(request, 'birthday/birthday.html', context)
+
+
+class BirthdayCreateView(CreateView):
+    # Указываем модель, с которой работает CBV...
+    model = Birthday
+    # Этот класс сам может создать форму на основе модели!
+    # Нет необходимости отдельно создавать форму через ModelForm.
+    # Указываем поля, которые должны быть в форме:
+    # fields = '__all__' 
+    # Указываем имя формы:
+
+    form_class = BirthdayForm
+    # Явным образом указываем шаблон:
+    template_name = 'birthday/birthday.html'
+    # Указываем namespace:name страницы, куда будет перенаправлен пользователь
+    # после создания объекта:
+    success_url = reverse_lazy('birthday:list')
 
 
 # Наследуем класс от встроенного ListView:
