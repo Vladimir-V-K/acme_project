@@ -17,7 +17,7 @@
             Калькулятор ожидания дня рождения
             </div>
         <div class="card-body">
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% if not "/delete/" in request.path %}
                 <!-- Выводим поля формы с помощью специального тега. -->
@@ -34,6 +34,7 @@
             {% if form.is_valid %}
                 ID новой записи в БД: {{ data.id }}
                 <hr>
+                На данный момент: <a>{{ data.image }}</a>
                 <h2>Привет, {{ data.first_name }} {{ data.last_name }}</h2>
             <!-- Если до дня рождения 0 дней... -->
             {% if birthday_countdown == 0 %}
