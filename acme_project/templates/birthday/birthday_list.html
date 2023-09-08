@@ -16,6 +16,8 @@
       <div class="col-10">  
         <div>
           {{ birthday.first_name }} {{ birthday.last_name }} — {{ birthday.birthday }}
+          <br>
+          <a href="{% url 'birthday:detail' birthday.id %}">Сколько до дня рождения?</a>
         </div>      
         <div>
           <a href="{% url 'birthday:edit' birthday.id %}">Изменить запись</a> | <a href="{% url 'birthday:delete' birthday.id %}">Удалить запись</a>
@@ -30,5 +32,5 @@
 
     <!-- Подключаем пагинатор -->
     {% include "includes/paginator.html" %}
-    
+
 {% endblock %}
